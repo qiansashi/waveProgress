@@ -10,7 +10,7 @@ export default class WaveProgress {
     /**
      * @constructor 
      *  @param {object} opts
-     *  @param {string|object} opts.dom 宿主canvas，可以是id或class名称，必选
+     *  @param {string|object} opts.canvas 宿主canvas，可以是id或class名称，必选
      *  @param {number} opts.progress 初始的进度，0~100，可选，默认为0
      *  @param {number} opts.waveSpeed 波浪横轴的运动速度，可选，默认为0.05，建议0.01~0.2
      *  @param {number} opts.progressSpeed 波浪纵轴的运动速度，可选，默认为0.6，取值大于0即可
@@ -20,16 +20,16 @@ export default class WaveProgress {
      *  @param {number} opts.waveCharacter.waveWidth 波浪宽度,数越小越宽，默认是0.02
      *  @param {number} opts.waveCharacter.waveHeight 波浪高度,数越大越高，默认是18
      */
-    constructor({ dom, progress = INITIAL_RANGE, waveSpeed = WAVE_SPEED, progressSpeed = PROGRESS_SPEED, waveCharacter = {} } = {}) {
+    constructor({ canvas, progress = INITIAL_RANGE, waveSpeed = WAVE_SPEED, progressSpeed = PROGRESS_SPEED, waveCharacter = {} } = {}) {
         if (arguments.length == 0) {
             throw new Error('expect object, the param must be an object')
         }
-        if (dom === undefined) {
-            throw new Error('canvas dom is required')
+        if (canvas === undefined) {
+            throw new Error('canvas is required')
         }
 
         this._init({
-            dom,
+            canvas,
             progress,
             waveSpeed,
             progressSpeed,
@@ -42,8 +42,8 @@ export default class WaveProgress {
      * 
      * @private
      */
-    _init({ dom, progress, waveSpeed, progressSpeed, waveCharacter }) {
-        this.canvas = document.querySelector(dom)
+    _init({ canvas, progress, waveSpeed, progressSpeed, waveCharacter }) {
+        this.canvas = canvas
         this.ctx = this.canvas.getContext('2d')
         let canvasWidth, canvasHeight
 
